@@ -1,0 +1,135 @@
+{
+ "case": "MEM-001-AMT",
+ "profile": "clean",
+ "steps": [
+  {
+   "step": 1,
+   "user": "I'm CUS-0004. Please open a dispute for transaction TX-0401 with reason code duplicate_charge, amount 240.00 EUR.",
+   "answer": "Done. I've opened dispute **#1** for transaction TX-0401 with reason code duplicate_charge for 240.00 EUR. The dispute is now open and your case is under review. The transaction is within the 60-day dispute window (deadline 18 September 2026).",
+   "summary": null,
+   "history_entities_at_input": {
+    "сума": false,
+    "reason code": false,
+    "TX-0401": false
+   },
+   "tools": [
+    {
+     "name": "check_dispute_eligibility",
+     "args": {
+      "transaction_id": "TX-0401",
+      "reason_code": "duplicate_charge"
+     },
+     "result": {
+      "eligible": true,
+      "reason_code": "duplicate_charge",
+      "window_days": 60,
+      "tx_date": "2026-07-20",
+      "as_of": "2026-09-15",
+      "deadline": "2026-09-18",
+      "checks": {
+       "reason_code": "pass",
+       "tx_status": "pass",
+       "window": "pass",
+       "compliance_hold": "pass"
+      }
+     }
+    },
+    {
+     "name": "create_dispute",
+     "args": {
+      "transaction_id": "TX-0401",
+      "reason_code": "duplicate_charge",
+      "amount": 240.0,
+      "currency": "EUR"
+     },
+     "result": {
+      "dispute_id": 1,
+      "status": "open"
+     }
+    }
+   ],
+   "kb_calls": 0,
+   "request_id": "5181d86ff6a14fce"
+  },
+  {
+   "step": 2,
+   "user": "Thanks. How does the review process work in general?",
+   "answer": "Based on our dispute process documentation:\n\n**Case states:** Your dispute will move through these stages:\n- **Open** — just raised (where you are now)\n- **Under review** — we are investigating\n- **Provisional credit** — a temporary credit may be issued while review continues\n- **Resolved (upheld or declined)** — final outcome\n\n**Review timeline:** The target is **10 business days** for card disputes and 20 business days for transfer disputes. Your transaction (TX-0401) appears to be a card transaction, so you can expect a resolution within that timeframe. Complex cases involving a foreign acquirer may extend to 45 calendar days; if that applies to yours, we'll notify you.\n\n**Withdrawal:** You can withdraw your dispute at any time while it remains open or under review, but withdrawal is final—the same transaction cannot be disputed again under the same reason code.\n\nWe'll keep you updated as the case progresses.",
+   "summary": null,
+   "history_entities_at_input": {
+    "сума": true,
+    "reason code": true,
+    "TX-0401": true
+   },
+   "tools": [
+    {
+     "name": "search_knowledge_base",
+     "args": {
+      "query": "dispute review process steps timeline"
+     },
+     "result": {
+      "index": "kb_clean",
+      "top_k": 4,
+      "query": "dispute review process steps timeline",
+      "fragments": [
+       {
+        "id": "disputes-process.md#s6",
+        "doc": "disputes-process.md",
+        "score": 0.7071,
+        "text": "Dispute handling process\n## Withdrawing a dispute\nA customer may withdraw a dispute at any time before resolution. Withdrawal is\nfinal; the same transaction cannot be disputed again under the same reason code."
+       },
+       {
+        "id": "disputes-process.md#s4",
+        "doc": "disputes-process.md",
+        "score": 0.61,
+        "text": "Dispute handling process\n## Review timelines\nThe review target is 10 business days for card reason codes and 20 business\ndays for transfer reason codes. Complex cases involving a foreign acquirer may\nrun to 45 calendar days; the customer is notified when that happens."
+       },
+       {
+        "id": "disputes-process.md#s2",
+        "doc": "disputes-process.md",
+        "score": 0.6,
+        "text": "Dispute handling process\n## Case states\nA dispute moves through: open, under_review, provisional_credit,\nresolved_upheld, resolved_declined. Only open and under_review cases can be\nwithdrawn by the customer."
+       },
+       {
+        "id": "disputes-process.md#s1",
+        "doc": "disputes-process.md",
+        "score": 0.5714,
+        "text": "Dispute handling process\n## Raising a dispute\nA dispute is raised against a single settled transaction. The customer supplies\nthe transaction reference and a reason code. The agent verifies eligibility\nbefore the case is opened; an ineligible request is refused with the failing\ncondition named, except where confidentiality rules apply."
+       }
+      ]
+     }
+    }
+   ],
+   "kb_calls": 1,
+   "request_id": "88dd362ad86b4449"
+  },
+  {
+   "step": 3,
+   "user": "And what are the typical timelines?",
+   "answer": "Based on the dispute we opened for you earlier:\n\n**Your Dispute Timeline**\n\nYour dispute (#1) for the duplicate charge (TX-0401, 240.00 EUR) was opened on 15 September 2026 and has a deadline of 18 September 2026 — well within the 60-day dispute window from the original transaction date (20 July 2026).\n\n**Expected Resolution:**\n- **Standard:** 10 business days for card disputes\n- **Extended:** up to 45 calendar days if the transaction involves a foreign acquirer (a bank outside our direct network)\n\n**What Happens Next:**\nVerta will investigate the duplicate charge claim and contact the merchant's bank. You'll be notified of the outcome once the review is complete. If the dispute is upheld, the 240.00 EUR will be credited back to your account.\n\n**Important:** Once a dispute is open, you cannot withdraw it, so the case will proceed to resolution.\n\nIs there anything else you'd like to know about your dispute or your account?",
+   "summary": "**SUMMARY FOR REFERENCE**\n\n**Customer:** CUS-0004\n\n**Dispute Created:**\n- **Dispute ID:** #1\n- **Status:** Open\n- **Transaction ID:** TX-0401\n- **Amount:** 240.00 EUR\n- **Reason Code:** duplicate_charge\n- **Transaction Date:** 20 July 2026\n- **Case Opened:** 15 September 2026\n- **Dispute Deadline:** 18 September 2026 (within 60-day window)\n\n**Eligibility Check:** Passed all checks (reason code valid, transaction settled, within dispute window, no compliance hold)\n\n**Expected Timeline:** 10 business days (card dispute); may extend to 45 calendar days if foreign acquirer involvement\n\n**Notes:** Customer informed of review process and withdrawal policy.",
+   "history_entities_at_input": {
+    "сума": true,
+    "reason code": true,
+    "TX-0401": true
+   },
+   "tools": [],
+   "kb_calls": 0,
+   "request_id": "8ab68368e2b14a76"
+  },
+  {
+   "step": 4,
+   "user": "Just confirm back to me: what is the exact amount recorded on my dispute case?",
+   "answer": "The exact amount recorded on your dispute case is **240.00 EUR**.\n\nThis matches the original transaction amount (TX-0401) that was disputed for the duplicate charge.",
+   "summary": null,
+   "history_entities_at_input": {
+    "сума": true,
+    "reason code": true,
+    "TX-0401": true
+   },
+   "tools": [],
+   "kb_calls": 0,
+   "request_id": "9f2acaa0a17b4d49"
+  }
+ ]
+}

@@ -1,0 +1,135 @@
+{
+ "case": "MEM-001-AMT",
+ "profile": "lesson-05",
+ "steps": [
+  {
+   "step": 1,
+   "user": "I'm CUS-0004. Please open a dispute for transaction TX-0401 with reason code duplicate_charge, amount 240.00 EUR.",
+   "answer": "Done. I've opened dispute **#1** for transaction TX-0401 with reason code duplicate_charge. The disputed amount is 240.00 EUR.\n\nAll eligibility checks passed:\n- Transaction date: 20 July 2026\n- Dispute window: 60 days\n- Deadline: 18 September 2026\n- Your dispute is now open and will be reviewed.",
+   "summary": null,
+   "history_entities_at_input": {
+    "сума": false,
+    "reason code": false,
+    "TX-0401": false
+   },
+   "tools": [
+    {
+     "name": "check_dispute_eligibility",
+     "args": {
+      "transaction_id": "TX-0401",
+      "reason_code": "duplicate_charge"
+     },
+     "result": {
+      "eligible": true,
+      "reason_code": "duplicate_charge",
+      "window_days": 60,
+      "tx_date": "2026-07-20",
+      "as_of": "2026-09-15",
+      "deadline": "2026-09-18",
+      "checks": {
+       "reason_code": "pass",
+       "tx_status": "pass",
+       "window": "pass",
+       "compliance_hold": "pass"
+      }
+     }
+    },
+    {
+     "name": "create_dispute",
+     "args": {
+      "transaction_id": "TX-0401",
+      "reason_code": "duplicate_charge",
+      "amount": 240.0,
+      "currency": "EUR"
+     },
+     "result": {
+      "dispute_id": 1,
+      "status": "open"
+     }
+    }
+   ],
+   "kb_calls": 0,
+   "request_id": "e24e53c1e7cc4002"
+  },
+  {
+   "step": 2,
+   "user": "Thanks. How does the review process work in general?",
+   "answer": "Here's how the dispute review process works:\n\n**Case progression**  \nYour dispute moves through these states: open → under_review → provisional_credit → resolved (either upheld or declined).\n\n**Review timeline**  \nThe target is **10 business days** for card reason codes and **20 business days** for transfer reason codes. Complex cases involving a foreign acquirer may extend to 45 calendar days; you'll be notified if that applies to your case.\n\n**Withdrawal**  \nYou can withdraw your dispute at any time while it remains open or under review. However, withdrawal is final—the same transaction cannot be disputed again under the same reason code.\n\nYour dispute #1 is currently open and will move to under_review as the process begins.",
+   "summary": null,
+   "history_entities_at_input": {
+    "сума": true,
+    "reason code": true,
+    "TX-0401": true
+   },
+   "tools": [
+    {
+     "name": "search_knowledge_base",
+     "args": {
+      "query": "dispute review process"
+     },
+     "result": {
+      "index": "kb_clean",
+      "top_k": 4,
+      "query": "dispute review process",
+      "fragments": [
+       {
+        "id": "disputes-process.md#s6",
+        "doc": "disputes-process.md",
+        "score": 0.7071,
+        "text": "Dispute handling process\n## Withdrawing a dispute\nA customer may withdraw a dispute at any time before resolution. Withdrawal is\nfinal; the same transaction cannot be disputed again under the same reason code."
+       },
+       {
+        "id": "disputes-process.md#s4",
+        "doc": "disputes-process.md",
+        "score": 0.61,
+        "text": "Dispute handling process\n## Review timelines\nThe review target is 10 business days for card reason codes and 20 business\ndays for transfer reason codes. Complex cases involving a foreign acquirer may\nrun to 45 calendar days; the customer is notified when that happens."
+       },
+       {
+        "id": "disputes-process.md#s2",
+        "doc": "disputes-process.md",
+        "score": 0.6,
+        "text": "Dispute handling process\n## Case states\nA dispute moves through: open, under_review, provisional_credit,\nresolved_upheld, resolved_declined. Only open and under_review cases can be\nwithdrawn by the customer."
+       },
+       {
+        "id": "disputes-process.md#s1",
+        "doc": "disputes-process.md",
+        "score": 0.5714,
+        "text": "Dispute handling process\n## Raising a dispute\nA dispute is raised against a single settled transaction. The customer supplies\nthe transaction reference and a reason code. The agent verifies eligibility\nbefore the case is opened; an ineligible request is refused with the failing\ncondition named, except where confidentiality rules apply."
+       }
+      ]
+     }
+    }
+   ],
+   "kb_calls": 1,
+   "request_id": "23ce6766c2cb424b"
+  },
+  {
+   "step": 3,
+   "user": "And what are the typical timelines?",
+   "answer": "Based on our earlier conversation, here are the typical timelines for dispute resolution at Verta:\n\n**Dispute Review Process:**\n- **Target resolution window:** 10 days from when the dispute is opened\n- **Case state progression:** Your dispute moves through defined stages as it's investigated — from initial submission through review to resolution\n- **Withdrawal option:** You can withdraw your dispute at any point during the review if circumstances change\n\nThe 10-day target is the standard timeframe we aim for, though the actual duration can vary depending on the complexity of your case and any additional information needed from you or the merchant.\n\nIs there anything specific about your dispute timeline or status you'd like me to clarify further?",
+   "summary": "**SUMMARY FOR REFERENCE:**\nCustomer CUS-0004 opened a service_not_rendered dispute for a EUR transaction, requesting review. Received overview of dispute review process (10-day target, case state progression, withdrawal options).",
+   "history_entities_at_input": {
+    "сума": false,
+    "reason code": false,
+    "TX-0401": false
+   },
+   "tools": [],
+   "kb_calls": 0,
+   "request_id": "e44edcd76dd34da8"
+  },
+  {
+   "step": 4,
+   "user": "Just confirm back to me: what is the exact amount recorded on my dispute case?",
+   "answer": "I don't have the dispute case details visible in our current conversation history. To confirm the exact amount recorded on your dispute, I'll need to look that up.\n\nCould you tell me which transaction this relates to — do you have the transaction ID or can you describe the transaction (merchant, date, approximate amount)? That will help me retrieve the precise details of your dispute case.",
+   "summary": null,
+   "history_entities_at_input": {
+    "сума": false,
+    "reason code": false,
+    "TX-0401": false
+   },
+   "tools": [],
+   "kb_calls": 0,
+   "request_id": "696e38caaf5a4275"
+  }
+ ]
+}

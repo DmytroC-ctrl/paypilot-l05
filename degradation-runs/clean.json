@@ -1,0 +1,167 @@
+{
+ "profile": "clean",
+ "session_id": "060120ff142b",
+ "steps": [
+  {
+   "step": 1,
+   "user": "I'm CUS-0004. Transaction TX-0401, 240.00 EUR: the goods never arrived. Which reason code applies?",
+   "answer": "Good news: this dispute is eligible. The transaction from 20 July 2026 falls within the 90-day dispute window, with a deadline of 18 October 2026. All eligibility checks pass.\n\nWould you like me to open this dispute for the 240.00 EUR transaction under goods_not_received?",
+   "summary": null,
+   "history_entities_at_input": {
+    "сума": false,
+    "дата": false,
+    "reason code": false,
+    "вікно": false
+   },
+   "tools": [
+    {
+     "name": "check_dispute_eligibility",
+     "args": {
+      "transaction_id": "TX-0401",
+      "reason_code": "goods_not_received"
+     },
+     "result": {
+      "eligible": true,
+      "reason_code": "goods_not_received",
+      "window_days": 90,
+      "tx_date": "2026-07-20",
+      "as_of": "2026-09-15",
+      "deadline": "2026-10-18",
+      "checks": {
+       "reason_code": "pass",
+       "tx_status": "pass",
+       "window": "pass",
+       "compliance_hold": "pass"
+      }
+     }
+    }
+   ],
+   "request_id": "1f52e345bfae40da"
+  },
+  {
+   "step": 2,
+   "user": "Can I dispute it?",
+   "answer": "Yes, you can dispute it. The transaction is eligible under the **goods_not_received** reason code. All checks pass:\n\n- **Reason code:** valid for this dispute type\n- **Transaction status:** eligible\n- **Time window:** within the 90-day dispute period (deadline 18 October 2026)\n- **Compliance:** no blocks\n\nShall I go ahead and open the dispute for TX-0401 (240.00 EUR)?",
+   "summary": null,
+   "history_entities_at_input": {
+    "сума": true,
+    "дата": true,
+    "reason code": true,
+    "вікно": true
+   },
+   "tools": [],
+   "request_id": "515f2fd51cb44108"
+  },
+  {
+   "step": 3,
+   "user": "What is my daily card limit?",
+   "answer": "Your daily card limit is **EUR 5,000** (tier 1). As of today (15 September 2026), you have not yet spent any of your daily allowance, so your full daily remaining balance is **EUR 5,000**.\n\nFor reference, your monthly limit is EUR 50,000, and you have EUR 49,964.50 remaining this month.\n\nIs there anything else I can help with regarding your limits or the dispute we were discussing?",
+   "summary": "# Support Summary\n\n**Customer ID:** CUS-0004\n\n**Transaction Details:**\n- Transaction ID: TX-0401\n- Amount: 240.00 EUR\n- Transaction Date: 20 July 2026\n- Issue: Goods never arrived\n\n**Dispute Information:**\n- Reason Code: goods_not_received\n- Eligibility Status: ELIGIBLE\n- Dispute Window: 90 days\n- Deadline: 18 October 2026\n- Days Elapsed: ~57 days (as of 15 September 2026)\n\n**Eligibility Checks:** All passed\n- Reason code validation: Pass\n- Transaction status: Pass\n- Dispute window: Pass\n- Compliance hold: Pass\n\n**Customer Request:** Customer confirmed they wish to dispute the transaction. Awaiting confirmation to proceed with opening the formal dispute.",
+   "history_entities_at_input": {
+    "сума": true,
+    "дата": true,
+    "reason code": true,
+    "вікно": true
+   },
+   "tools": [
+    {
+     "name": "check_limits",
+     "args": {
+      "customer_id": "CUS-0004"
+     },
+     "result": {
+      "tier": "tier1",
+      "as_of": "2026-09-15",
+      "daily_limit_eur": 5000,
+      "daily_spent_eur": 0,
+      "daily_remaining_eur": 5000,
+      "monthly_limit_eur": 50000,
+      "monthly_spent_eur": 35.5,
+      "monthly_remaining_eur": 49964.5
+     }
+    }
+   ],
+   "request_id": "ba57fa381a864ab5"
+  },
+  {
+   "step": 4,
+   "user": "And the FX spread if I pay in USD?",
+   "answer": "I'll get you an FX quote for a payment in USD. To calculate the spread, I need to know the amount you'd like to convert. What amount in USD are you considering?",
+   "summary": null,
+   "history_entities_at_input": {
+    "сума": true,
+    "дата": true,
+    "reason code": true,
+    "вікно": true
+   },
+   "tools": [],
+   "request_id": "fc66fd00822f421e"
+  },
+  {
+   "step": 5,
+   "user": "Fine. Back to that charge — what do I do next?",
+   "answer": "Based on our earlier summary, you've confirmed you want to dispute transaction TX-0401 (EUR 240.00 from 20 July 2026, goods not received). The dispute is eligible and well within the 90-day window (33 days remaining until 18 October 2026).\n\nI'm ready to open the dispute formally now. Shall I proceed with filing it?",
+   "summary": null,
+   "history_entities_at_input": {
+    "сума": true,
+    "дата": true,
+    "reason code": true,
+    "вікно": true
+   },
+   "tools": [],
+   "request_id": "9161e1234b30478e"
+  },
+  {
+   "step": 6,
+   "user": "240 euro, as I said at the start.",
+   "answer": "Here's your FX quote for EUR 240 to USD:\n\n- **Mid rate:** 1.086957\n- **Spread:** 0% (you're on tier 1 with a EUR 500 monthly free allowance, which covers this conversion)\n- **Spread amount:** EUR 0\n- **Final amount:** USD 260.87\n\nYou get the full mid rate with no markup on this transaction.\n\nRegarding the dispute: shall I go ahead and open it for transaction TX-0401 now?",
+   "summary": null,
+   "history_entities_at_input": {
+    "сума": true,
+    "дата": true,
+    "reason code": true,
+    "вікно": true
+   },
+   "tools": [
+    {
+     "name": "quote_fx",
+     "args": {
+      "customer_id": "CUS-0004",
+      "amount": 240,
+      "from_currency": "EUR",
+      "to_currency": "USD"
+     },
+     "result": {
+      "from_currency": "EUR",
+      "to_currency": "USD",
+      "amount": 240,
+      "mid_rate": 1.086957,
+      "tier": "tier1",
+      "spread_pct": 0.0,
+      "allowance_total_eur": 500,
+      "allowance_used_before_eur": 0.0,
+      "allowance_applied": true,
+      "gross_amount": 260.869565,
+      "spread_amount": 0.0,
+      "final_amount": 260.869565
+     }
+    }
+   ],
+   "request_id": "eb9026599e514733"
+  },
+  {
+   "step": 7,
+   "user": "And I still have time to file, right?",
+   "answer": "Yes, you still have time. The dispute window closes on **18 October 2026**, and as of today (15 September 2026) you have **33 days remaining** to file. You're well within the 90-day window.\n\nReady to open the dispute whenever you confirm?",
+   "summary": null,
+   "history_entities_at_input": {
+    "сума": true,
+    "дата": true,
+    "reason code": true,
+    "вікно": true
+   },
+   "tools": [],
+   "request_id": "6aff37bc7a7f4a4c"
+  }
+ ]
+}
